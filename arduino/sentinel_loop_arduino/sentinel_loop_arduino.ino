@@ -21,15 +21,15 @@ void setup() {
 }
 
 void loop() {
-  setColor(255, 0, 0);     // Red
+  setColor(0, 255, 0);     // Green
   Serial.println("STATE:NORMAL");
   delay(HOLD_TIME);
   
-  setColor(0, 255, 0);     // Green
+  setColor(255, 100, 0);     // Yellow
   Serial.println("STATE:CAUTION");
   delay(HOLD_TIME);
   
-  setColor(0, 0, 255);     // Blue
+  setColor(255, 0, 0);     // Red
   Serial.println("STATE:FALLBACK");
   delay(HOLD_TIME);
 }
