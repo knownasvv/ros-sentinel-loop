@@ -1,53 +1,21 @@
 # Sentinel Loop: ROS 2 + Arduino Fallback Behaviour Demo
 
-Sentinel Loop is a small introductory robotics decision-loop project connecting Arduino-based physical input with ROS 2 decision logic. A potentiometer simulates a changing sensor signal, while a push button provides a manual fallback trigger.
+Sentinel Loop is a small introductory robotics decision-loop project connecting Arduino-based physical input with ROS 2 decision logic.
 
-Arduino sends the input readings to a ROS 2 system through serial communication. ROS 2 classifies the readings into NORMAL, CAUTION, or FALLBACK, then sends the selected state back to Arduino.
+The initial version uses a potentiometer as a simulated sensor input and a push button as a manual fallback trigger. Arduino sends these inputs to ROS 2, where the system classifies the situation as NORMAL, CAUTION, or FALLBACK. The decision is then sent back to Arduino and represented through hardware outputs such as an RGB indicator, buzzer, LCD, and servo.
 
-#### Arduino presents the result through:
-- an RGB status indicator,
-- an LCD status display,
-- an audible buzzer warning,
-- an servo safe-position response.
-
-## Minimum success
-The project is complete when:
-1. Arduino reads the potentiometer.
-2. Arduino detects the manual fallback button.
-3. Arduino sends input messages to the laptop.
-4. A ROS 2 node parses those messages.
-5. The decision node publishes NORMAL, CAUTION, or FALLBACK.
-6. ROS 2 sends the decision back to Arduino.
-7. The RGB module displays the selected state.
-8. The buzzer activates during fallback.
-9. The README documents setup, behaviour, testing, and limitations.
-
-## Strong success
-A stronger version adds:
-1. LCD display for sensor value and state.
-2. Servo safe-position response.
-3. Serial timeout detection.
-4. Invalid-message handling.
-5. Moving-average filtering.
-6. Hysteresis near thresholds.
-7. Manual fallback priority.
-8. Automated tests for the decision logic.
-9. Architecture diagram.
-10. Short demonstration video.
+## Scope
+This project is not an autonomous robot or a safety-certified control system. It is a small educational demonstration of sensor input, software-based state classification, fallback behaviour, communication monitoring, and hardware response.
 
 ## System overview
 ```
 Physical input
     ↓
 Arduino Uno
-    ↓ Serial sensor message
-ROS 2 sensor node
-    ↓
-ROS 2 decision node
-    ↓ Serial state command
-Arduino Uno
-    ↓
-RGB light + LCD + buzzer + servo
+    ↓ Serial communication
+ROS 2 decision logic
+    ↓ Serial communication
+Arduino hardware response
 ```
 
 ### Serial Protocol
@@ -90,3 +58,9 @@ RGB light + LCD + buzzer + servo
 2. **LCD 1602 with IIC:** Displays the current state and the simulated input value.
 3. **Buzzer:** Emits a warning sound when in CAUTION or FALLBACK state.
 4. **Servo:** Moves to a safe position when in FALLBACK state.
+
+
+### Documentation
+- [docs/notes.md](./docs/notes.md): daily progress notes.
+- [docs/test_cases.md](./docs/test_cases.md): planned and completed tests.
+- [docs/reflection.md](./docs/reflection.md): learning notes.

@@ -10,5 +10,5 @@
 | T08 | Arduino messages stop | FALLBACK | Red and buzzer |
 | T09 | Values fluctuate around caution threshold | Stable state | No rapid state switching |
 | T10 | Valid readings resume after timeout | Classified from current input | Correct output restored |
-| T11 | Unknown command sent to Arduino | Previous safe state or fallback | No uncontrolled response
+| T11 | Unknown command sent to Arduino | Previous safe state or fallback | No uncontrolled response |
 | T12 | ROS 2 process terminates | Defined local behaviour | Arduino enters or retains safe state |
