@@ -1,7 +1,7 @@
 # Available Components
 ## Software
 - Arduino IDE
-- ROS 2 Humble
+- ROS 2 Jazzy
 
 ## Hardware
 - Arduino Uno R3
