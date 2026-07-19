@@ -15,7 +15,7 @@
 - RTC Module
 - Water Level Sensor
 - Humidity Sensor
-- RGB Module
+- HW-479 RGB Module (common-cathode)
 - Motor Driver Module
 - Motor
 - 1 Channel Module
@@ -43,26 +43,26 @@
 
 # Timeline
 
-## Week 1 — Hardware and serial foundation
+## Hardware and serial foundation
 
-### Day 1: Repository and Arduino verification
+### Task 1: Repository and Arduino verification
 - Create the ros-sentinel-loop repository.
 - Upload the Arduino Blink example.
 - Inventory the available hardware.
 - Start the README.
 - Photograph the setup.
 
-**Deliverable:** Arduino and repository are working.
+**Deliverable:** Arduino and repository are working. [Notes](./timeline/task1.md)
 
-### Day 2: State-output prototype
+### Task 2: State-output prototype
 - Connect the RGB module.
 - Implement green, yellow, and red states.
 - Test each state using temporary hardcoded commands.
 - Use separate LEDs temporarily if necessary.
 
-**Deliverable:** Arduino can display all three states.
+**Deliverable:** Arduino can display all three states. [Notes](./timeline/task2.md)
 
-### Day 3: Buzzer and manual fallback
+### Task 3: Buzzer and manual fallback
 - Connect the buzzer.
 - Connect one push switch.
 - Configure the switch using INPUT_PULLUP.
@@ -70,7 +70,7 @@
 
 **Deliverable:** Manual fallback works locally.
 
-### Day 4: Potentiometer input
+### Task 4: Potentiometer input
 - Connect the 10k potentiometer to an analog input.
 - Print raw values to the Serial Monitor.
 - Convert the value to a percentage.
@@ -78,7 +78,7 @@
 
 **Deliverable:** Arduino produces stable simulated sensor readings.
 
-### Day 5: Arduino-only classification
+### Task 5: Arduino-only classification
 - Implement the initial state thresholds on Arduino.
 - Display the state through the RGB module and buzzer.
 - Confirm all three ranges.
@@ -87,7 +87,7 @@
 
 This logic is temporary and is later moved into ROS 2.
 
-### Day 6: LCD and servo enhancement
+### Task 6: LCD and servo enhancement
 - Connect the IIC LCD.
 - Display sensor value and state.
 - Connect the servo if the power setup is stable.
@@ -95,7 +95,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** At least one enhanced output works.
 
-### Day 7: Failure testing and documentation
+### Task 7: Failure testing and documentation
 - Test threshold boundaries.
 - Test rapid potentiometer changes.
 - Test button override.
@@ -104,16 +104,16 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** Week-one prototype is documented.
 
-## Week 2 — ROS 2 integration
+## ROS 2 integration
 
-### Day 8: ROS 2 workspace
+### Task 8: ROS 2 workspace
 - Install or verify ROS 2.
 - Complete a basic Python publisher/subscriber exercise.
 - Create the sentinel_loop package.
 
 **Deliverable:** The ROS 2 Python package builds and runs.
 
-### Day 9: Standalone Python serial reader
+### Task 9: Standalone Python serial reader
 - Install pyserial.
 - Identify the Arduino serial device.
 - Read Arduino messages using a normal Python script.
@@ -121,7 +121,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** Python receives potentiometer and button messages.
 
-### Day 10: Serial bridge node
+### Task 10: Serial bridge node
 
 - Convert the serial script into a ROS 2 node.
 - Publish readings to /sensor_input.
@@ -129,7 +129,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** Arduino data appears on ROS 2 topics.
 
-### Day 11: Decision node
+### Task 11: Decision node
 
 - Subscribe to both input topics.
 - Implement state thresholds.
@@ -138,7 +138,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** ROS 2 produces all three states.
 
-### Day 12: Complete round trip
+### Task 12: Complete round trip
 - Subscribe to /system_state in the serial bridge.
 - Send the resulting state back to Arduino.
 - Parse the state command on Arduino.
@@ -146,7 +146,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** The full Arduino → ROS 2 → Arduino loop works.
 
-### Day 13: Timeout and stability handling
+### Task 13: Timeout and stability handling
 - Track the time of the latest valid sensor message.
 - Publish FALLBACK when messages stop.
 - Add a moving average or hysteresis.
@@ -155,7 +155,7 @@ This logic is temporary and is later moved into ROS 2.
 
 **Deliverable:** Failure handling and evidence are complete.
 
-### Day 14: Final presentation
+### Task 14: Final presentation
 - Clean the repository.
 - Add architecture and wiring diagrams.
 - Finish setup instructions.

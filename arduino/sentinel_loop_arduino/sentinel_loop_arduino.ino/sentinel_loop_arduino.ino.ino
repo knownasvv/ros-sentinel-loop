@@ -1,4 +1,4 @@
-// Day 1: Arduino board verification
+// Task 1: Arduino board verification
 
 void setup() {
   // put your setup code here, to run once:

@@ -1,4 +1,4 @@
-### Day 1: Repository and Arduino verification
+# Task 1: Repository and Arduino verification
 - Create the ros-sentinel-loop repository.
 - Upload the Arduino Blink example.
 - Inventory the available hardware.
@@ -15,5 +15,5 @@
 4. Install Arduino IDE and ROS 2 Jazzy
 5. Connected Arduino to Arduino IDE.
 6. Uploaded the Blink example to verify the Arduino is working. 
-   <img src="../images/d1-initial_setup.jpg" alt="Arduino Blink example" width="400"/>
-7. 
+   <img src="../images/initial_setup.jpg" alt="Arduino Blink example" width="400"/>
+
