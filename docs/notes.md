@@ -53,12 +53,14 @@
 - Photograph the setup.
 
 **Deliverable:** Arduino and repository are working. [Notes](./timeline/task1.md)
+<img src="../images/initial_setup.jpg" alt="Arduino Blink example" width="400"/>
 
 ### Task 2: State-output prototype
 - Connect the RGB module.
 - Implement green, yellow, and red states.
 - Test each state using temporary hardcoded commands.
 - Use separate LEDs temporarily if necessary.
+<img src="../images/rgb_module_setup.jpg" alt="RGB module setup" width="400"/>
 
 **Deliverable:** Arduino can display all three states. [Notes](./timeline/task2.md)
 
@@ -69,6 +71,7 @@
 - Trigger red output and buzzer when the button is pressed.
 
 **Deliverable:** Manual fallback works locally.
+<img src="../images/manual_fallback_setup.jpg" alt="Manual fallback setup" width="400"/>
 
 ### Task 4: Potentiometer input
 - Connect the 10k potentiometer to an analog input.
