@@ -1,0 +1,37 @@
+## Available Hardware
+- Arduino Uno R3
+- USB Cable
+- LCD 1602 with IIC
+- Rc522 Module
+- White Card
+- Key Chain
+- Joystick Module
+- Keyboard
+- RTC Module
+- Water Level Sensor
+- Humidity Sensor
+- RGB Module
+- Motor Driver Module
+- Motor
+- 1 Channel Module
+- MB-102 Breadboard
+- 65x Jumper Wires
+- 10x F-M Cables
+- Sound Sensor Module
+- Remote
+- 10k Potentiometer
+- 1 Digital Tube
+- 4 Digital Tube
+- Matrix Tube
+- 9G Servo
+- Buzzer
+- 2x Ball Switches
+- 3x Photoresistance
+- 5x Switches with Caps
+- 9V Battery with DC
+- 15x LEDs
+- 30x Resistances
+- Flame Sensor
+- IR Receive Sensor
+- 74HC595
+- LM35DZ
