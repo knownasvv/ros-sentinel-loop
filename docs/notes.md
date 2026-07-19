@@ -1,4 +1,9 @@
-## Available Hardware
+# Available Components
+## Software
+- Arduino IDE
+- ROS 2 Humble
+
+## Hardware
 - Arduino Uno R3
 - USB Cable
 - LCD 1602 with IIC
@@ -35,3 +40,126 @@
 - IR Receive Sensor
 - 74HC595
 - LM35DZ
+
+# Timeline
+
+## Week 1 — Hardware and serial foundation
+
+### Day 1: Repository and Arduino verification
+- Create the ros-sentinel-loop repository.
+- Upload the Arduino Blink example.
+- Inventory the available hardware.
+- Start the README.
+- Photograph the setup.
+
+**Deliverable:** Arduino and repository are working.
+
+### Day 2: State-output prototype
+- Connect the RGB module.
+- Implement green, yellow, and red states.
+- Test each state using temporary hardcoded commands.
+- Use separate LEDs temporarily if necessary.
+
+**Deliverable:** Arduino can display all three states.
+
+### Day 3: Buzzer and manual fallback
+- Connect the buzzer.
+- Connect one push switch.
+- Configure the switch using INPUT_PULLUP.
+- Trigger red output and buzzer when the button is pressed.
+
+**Deliverable:** Manual fallback works locally.
+
+### Day 4: Potentiometer input
+- Connect the 10k potentiometer to an analog input.
+- Print raw values to the Serial Monitor.
+- Convert the value to a percentage.
+- Record the observed minimum and maximum.
+
+**Deliverable:** Arduino produces stable simulated sensor readings.
+
+### Day 5: Arduino-only classification
+- Implement the initial state thresholds on Arduino.
+- Display the state through the RGB module and buzzer.
+- Confirm all three ranges.
+
+**Deliverable:** A temporary Arduino-only controller works.
+
+This logic is temporary and is later moved into ROS 2.
+
+### Day 6: LCD and servo enhancement
+- Connect the IIC LCD.
+- Display sensor value and state.
+- Connect the servo if the power setup is stable.
+- Test safe-position movement.
+
+**Deliverable:** At least one enhanced output works.
+
+### Day 7: Failure testing and documentation
+- Test threshold boundaries.
+- Test rapid potentiometer changes.
+- Test button override.
+- Record wiring and results.
+- Update README and test notes.
+
+**Deliverable:** Week-one prototype is documented.
+
+## Week 2 — ROS 2 integration
+
+### Day 8: ROS 2 workspace
+- Install or verify ROS 2.
+- Complete a basic Python publisher/subscriber exercise.
+- Create the sentinel_loop package.
+
+**Deliverable:** The ROS 2 Python package builds and runs.
+
+### Day 9: Standalone Python serial reader
+- Install pyserial.
+- Identify the Arduino serial device.
+- Read Arduino messages using a normal Python script.
+- Handle malformed lines without crashing.
+
+**Deliverable:** Python receives potentiometer and button messages.
+
+### Day 10: Serial bridge node
+
+- Convert the serial script into a ROS 2 node.
+- Publish readings to /sensor_input.
+- Publish button events to /manual_fallback.
+
+**Deliverable:** Arduino data appears on ROS 2 topics.
+
+### Day 11: Decision node
+
+- Subscribe to both input topics.
+- Implement state thresholds.
+- Implement manual-fallback priority.
+- Publish /system_state.
+
+**Deliverable:** ROS 2 produces all three states.
+
+### Day 12: Complete round trip
+- Subscribe to /system_state in the serial bridge.
+- Send the resulting state back to Arduino.
+- Parse the state command on Arduino.
+- Control the RGB module and buzzer using ROS 2 decisions.
+
+**Deliverable:** The full Arduino → ROS 2 → Arduino loop works.
+
+### Day 13: Timeout and stability handling
+- Track the time of the latest valid sensor message.
+- Publish FALLBACK when messages stop.
+- Add a moving average or hysteresis.
+- Run the complete test suite.
+- Record screenshots and a short demo.
+
+**Deliverable:** Failure handling and evidence are complete.
+
+### Day 14: Final presentation
+- Clean the repository.
+- Add architecture and wiring diagrams.
+- Finish setup instructions.
+- Add limitations and reflection.
+- Prepare the DAAD and interview explanation.
+
+**Deliverable:** The project is ready to share.
