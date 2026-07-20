@@ -157,12 +157,3 @@ This logic is temporary and is later moved into ROS 2.
 - Record screenshots and a short demo.
 
 **Deliverable:** Failure handling and evidence are complete.
-
-### Task 14: Final presentation
-- Clean the repository.
-- Add architecture and wiring diagrams.
-- Finish setup instructions.
-- Add limitations and reflection.
-- Prepare the DAAD and interview explanation.
-
-**Deliverable:** The project is ready to share.
