@@ -1,10 +1,14 @@
 #include <Keypad.h>
 
 const int SENSOR_PIN = A0;
+const int CAUTION_THRESHOLD = 600;
+const int FALLBACK_THRESHOLD = 850;
 int observedMin = 1023;
 int observedMax = 0;
+int sensorValue = 0;
 
 const int BUZZER_PIN = 8;
+
 const int RED_PIN = 9;
 const int GREEN_PIN = 10;
 const int BLUE_PIN = 11;
@@ -39,11 +43,42 @@ enum class SystemState {
 };
 
 SystemState currentState = SystemState::NORMAL;
+bool stateInitialized = false;
+bool manualFallback = false;
 
 void setColor(int red, int green, int blue) {
   analogWrite(RED_PIN, red);
   analogWrite(GREEN_PIN, green);
   analogWrite(BLUE_PIN, blue);
+}
+
+SystemState classifySensor(int sensorValue) {
+  if (sensorValue >= FALLBACK_THRESHOLD) {
+    return SystemState::FALLBACK;
+  }
+
+  if (sensorValue >= CAUTION_THRESHOLD) {
+    return SystemState::CAUTION;
+  }
+
+  return SystemState::NORMAL;
+}
+
+void handleKeyboard() {
+  char key = keypad.getKey();
+  if (!key) {
+    return;
+  }
+
+  if (key == 'G') {
+    manualFallback = true;
+    Serial.println("MANUAL_FALLBACK:ACTIVE");
+  } 
+  
+  if (key == '1') {
+    manualFallback = false;
+    Serial.println("MANUAL_FALLBACK:CLEARED");
+  }
 }
 
 void applyState(SystemState state) {
@@ -77,33 +112,18 @@ void setup() {
   pinMode(BLUE_PIN, OUTPUT);
 
   Serial.begin(9600);
-
+  Serial.println("--- Sentinel Loop Arduino controller started ---");
   applyState(SystemState::NORMAL);
   Serial.println("Controls: 1=NORMAL, 2=CAUTION, G=FALLBACK");
 }
 
-void loop() {
-  char key = keypad.getKey();
-  switch (key) {
-    case '1':
-      applyState(SystemState::NORMAL);
-      break;
-    
-    case '2':
-      applyState(SystemState::CAUTION);
-      break;
-
-    case 'G':
-      applyState(SystemState::FALLBACK);
-      break;
-    
-    default:
-      Serial.print("KEY_IGNORED:");
-      Serial.println(key);
-      break;
+int updatePentiometerValue() {
+  int rawValue = analogRead(SENSOR_PIN);
+  if (sensorValue == rawValue) {
+    return;
   }
+  sensorValue = rawValue;
 
-  int sensorValue = analogRead(SENSOR_PIN);
   if (sensorValue < observedMin) {
     observedMin = sensorValue;
   }
@@ -112,7 +132,10 @@ void loop() {
     observedMax = sensorValue;
   }
 
-  float sensorPercentage = (sensorValue / 1023.0) * 100.0;
+  return sensorValue;
+}
+
+void printDetail(int sensorPercentage) {
   Serial.print("RAW:");
   Serial.print(sensorValue);
 
@@ -124,6 +147,19 @@ void loop() {
 
   Serial.print(" | MAX:");
   Serial.println(observedMax);
+}
 
+void loop() {
+  handleKeyboard();
+  updatePentiometerValue();
+  float sensorPercentage = (sensorValue / 1023.0) * 100.0;
+
+  if (manualFallback) {
+    applyState(SystemState::FALLBACK);
+  } else {
+    SystemState classifiedState = classifySensor(sensorValue);
+    applyState(classifiedState);
+  }
+  printDetail(sensorPercentage);
   delay(1000);
 }
