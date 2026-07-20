@@ -1,5 +1,8 @@
-// Task 2: RGB test
 #include <Keypad.h>
+
+const int SENSOR_PIN = A0;
+int observedMin = 1023;
+int observedMax = 0;
 
 const int BUZZER_PIN = 8;
 const int RED_PIN = 9;
@@ -81,11 +84,6 @@ void setup() {
 
 void loop() {
   char key = keypad.getKey();
-
-  if (!key) {
-    return;
-  }
-
   switch (key) {
     case '1':
       applyState(SystemState::NORMAL);
@@ -104,4 +102,28 @@ void loop() {
       Serial.println(key);
       break;
   }
+
+  int sensorValue = analogRead(SENSOR_PIN);
+  if (sensorValue < observedMin) {
+    observedMin = sensorValue;
+  }
+
+  if (sensorValue > observedMax) {
+    observedMax = sensorValue;
+  }
+
+  float sensorPercentage = (sensorValue / 1023.0) * 100.0;
+  Serial.print("RAW:");
+  Serial.print(sensorValue);
+
+  Serial.print(" | PERCENT:");
+  Serial.print(sensorPercentage, 1);
+
+  Serial.print("% | MIN:");
+  Serial.print(observedMin);
+
+  Serial.print(" | MAX:");
+  Serial.println(observedMax);
+
+  delay(1000);
 }
